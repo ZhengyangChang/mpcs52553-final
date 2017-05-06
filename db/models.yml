@@ -1,0 +1,36 @@
+House
+  address: text
+  start_date: text
+  end_date: text
+  rate: integer
+  number_of_bedrooms: integer
+  number_of_bathrooms: integer
+  availability: integer
+  host_id: integer
+
+User
+  login: text
+  password: text
+
+Host
+  name: text
+  email: text
+  phone: text
+  user_id: integer
+
+Renter
+  name: text
+  email: text
+  phone: text
+  user_id: integer
+
+Reservation
+  update_at: datetime
+  house_id: integer
+  renter_id: integer
+
+Message
+  body: text
+  update_at: datetime
+  house_id: integer
+  renter_id: integer

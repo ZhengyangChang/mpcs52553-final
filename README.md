@@ -4,6 +4,7 @@
 * Can log in as renter or host
 * Host can publish short-term sublease in a specific area (say Hyde park)
 * A house for rent include 
+  * Location
   * Time to rent
   * Rate
   * Number of rooms

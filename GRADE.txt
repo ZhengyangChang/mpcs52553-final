@@ -1,0 +1,14 @@
+Milestone #1 Grade - c439621258
+
+Score: (10/10)
+
+Nice work!
+
+- Six models is a bit on the bigger side. To make the app the as simple as possible, I would see if there are any
+models/associations you can do without (maybe `Message`?).
+
+- Try to see if there are more validations you could add, such as `validates_presence_of :address` for the `House` model
+
+- `login` (`User` model) is a bit unclear -- I'm guessing it will be an email/username, but I would make this column name 
+more specific, since you'll probably be limiting it to one of the two.
+

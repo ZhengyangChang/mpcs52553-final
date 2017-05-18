@@ -16,3 +16,12 @@
 * Administrators can add, edit and delete users.
 * Administrators can edit and delete houses.
 * And maybe more features in the future.
+
+
+# Week 8
+
+* Add bootstrap to stylesheet
+* Implement user sign up and sign in functions.  ( in "/users/new" & "sign in" )
+* Users can sign up as a renter or a host. 
+* Hosr can publish a new house for lease (in "/house/new")
+* A simple list of houses to rent in root

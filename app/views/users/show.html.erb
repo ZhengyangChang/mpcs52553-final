@@ -1,0 +1,98 @@
+<style>
+.subheader {
+    clear: both;
+    margin-bottom: 10px;
+    height: 40px;
+    border-bottom: 1px solid #e4e6e8;
+}
+</style>
+
+<script>
+function changeToEdit(section)
+{
+  var div = "-div";
+
+  document.getElementById(section.concat(div)).innerHTML ='\
+  <%= form_tag "/users/#{@user.id}", method: "patch" , class: "form-inline" do %>\
+  <input type="text" name="'.concat(section,'" class="form-control">\
+  <input type="submit" value="save" class="btn btn-primary">\
+  <% end %>');
+  return;
+}
+</script>
+
+<ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+
+<% if @user.renter.present? %>
+  <div class="page-header">
+    <div class="btn-toolbar pull-right">
+      <h2>As Renter</h2>
+    </div>
+    <h2><%= @user.renter.name %></h2>
+  </div>
+
+  <div class="col-md-6">
+    <div class="subheader">
+      <h3>Email</h3>
+    </div>
+    <div id="email-div">
+      <%= @user.email %>
+    </div>
+  </div>
+
+  <% if @user.renter.phone.present? %>
+    <div class="col-md-6">
+      <div class="subheader">
+        <% if @user.id == session["user_id"] %>
+        <div class="btn-toolbar pull-right">
+          <button class="btn btn-primary" onClick="changeToEdit('phone');">Edit</button>
+        </div>
+        <% end %>
+
+        <h3>Phone</h3>
+      </div>
+      <div id="phone-div">
+        <%= @user.renter.phone %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @user.host.present? %>
+  <div class="page-header">
+    <div class="btn-toolbar pull-right">
+      <h2>As Host</h2>
+    </div>
+    <h2><%= @user.host.name %></h2>
+  </div>
+
+  <div class="col-md-6">
+    <div class="subheader">
+      <h3>Email</h3>
+    </div>
+    <div id="email-div">
+      <%= @user.email %>
+    </div>
+  </div>
+
+  <% if @user.host.phone.present? %>
+    <div class="col-md-6">
+      <div class="subheader">
+        <% if @user.id == session["user_id"] %>
+        <div class="btn-toolbar pull-right">
+          <button class="btn btn-primary" onClick="changeToEdit('phone');">Edit</button>
+        </div>
+        <% end %>
+
+        <h3>Phone</h3>
+      </div>
+      <div id="phone-div">
+        <%= @user.host.phone %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

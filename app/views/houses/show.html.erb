@@ -1,0 +1,17 @@
+<div class="page-header">
+  <h1><%= @house.building_name %></h1>
+</div>
+
+  <h2> Rate:$<%= @house.rate %>/month </h2>
+  <h2> <%= @house.number_of_bedrooms %> bedrooms and <%= @house.number_of_bathrooms %> bathrooms</h2>
+  <h2> Host: <%= link_to @house.host.name, "/users/#{@house.host.user.id}" %> </h2>
+<% if session["user_id"].present? %>
+  <% if User.find_by(id: session["user_id"]).renter.present? %>
+  <h2 class="page-header"> Your Message </h2>
+  <form>
+    <input type="text"/>
+    <input type="submit" name="Submit">
+  </form>
+
+  <% end %>
+<% end %>

@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "hosts", force: :cascade do |t|
     t.text    "name"
-    t.text    "email"
     t.text    "phone"
     t.integer "user_id"
     t.index ["user_id"], name: "index_hosts_on_user_id"
@@ -28,6 +27,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "number_of_bedrooms"
     t.integer "number_of_bathrooms"
     t.integer "host_id"
+    t.integer "availability"
+    t.text    "building_name"
+    t.text    "room"
     t.index ["host_id"], name: "index_houses_on_host_id"
   end
 
@@ -42,7 +44,6 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "renters", force: :cascade do |t|
     t.text    "name"
-    t.text    "email"
     t.text    "phone"
     t.integer "user_id"
     t.index ["user_id"], name: "index_renters_on_user_id"
@@ -57,8 +58,12 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "login"
-    t.text "password"
+    t.text    "email"
+    t.text    "password_digest"
+    t.integer "host_id"
+    t.integer "renter_id"
+    t.index ["host_id"], name: "index_users_on_host_id"
+    t.index ["renter_id"], name: "index_users_on_renter_id"
   end
 
 end

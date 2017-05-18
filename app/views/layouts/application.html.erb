@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mpcs52553Final</title>
+    <title>Hyde Park Renters</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+
+    <header class="bs-docs-nav navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+
+          <a href="/" class="navbar-brand">Hyde Park Renters</a>
+        </div>
+
+        <ul class="nav navbar-nav"> 
+          <li> 
+            <a href="/houses/">Houses</a> 
+          </li> 
+          <% if session["user_id"].present? %>
+            <% if User.find_by(id: session["user_id"]).host.present? %>
+              <li>
+                <a href="/houses/new">Post</a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if session["user_id"].present? %>
+          <li><%= link_to User.find_by(id: session["user_id"]).email, "/users/#{session["user_id"]}" %></li>
+          <li><%= link_to "Sign Out","/logout" %></li>
+          <% else %>
+          <li><%= link_to "Sign In", "/login" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
+    <div class="container bs-docs-container">
+    <% if notice.present? %>
+    <% if notice.starts_with? "Error:" %>
+      <%= content_tag :div, :class => "alert alert-danger", role: "alert" do %>
+        <%= notice[6..-1] %>
+      <% end %>
+    <% else %>
+      <%= content_tag :div, :class => "alert alert-success", role: "alert" do %>
+        <%= notice %>
+      <% end %>
+    <% end %>
+    <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>

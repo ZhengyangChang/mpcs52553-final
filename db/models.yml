@@ -1,5 +1,7 @@
 House
+  building_name: text
   address: text
+  room: text
   start_date: text
   end_date: text
   rate: integer
@@ -9,18 +11,18 @@ House
   host_id: integer
 
 User
-  login: text
-  password: text
+  email: text
+  password_digest: text
+  host_id: integer
+  renter_id: integer
 
 Host
   name: text
-  email: text
   phone: text
   user_id: integer
 
 Renter
   name: text
-  email: text
   phone: text
   user_id: integer
 

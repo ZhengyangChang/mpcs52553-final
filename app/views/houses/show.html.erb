@@ -6,6 +6,13 @@
   <h2> <%= @house.number_of_bedrooms %> bedrooms and <%= @house.number_of_bathrooms %> bathrooms</h2>
   <h2> Host: <%= link_to @house.host.name, "/users/#{@house.host.user.id}" %> </h2>
 <% if session["user_id"].present? %>
+  <% if User.find_by(id: session["user_id"]).host.present? %>
+    <% if User.find_by(id: session["user_id"]).host == @house.host %>
+      <h2><%= link_to "EDIT","/houses/#{@house.id}/edit" %> </h2>
+    <% end %>
+  <% end %>
+<% end %>
+<% if session["user_id"].present? %>
   <% if User.find_by(id: session["user_id"]).renter.present? %>
   <h2 class="page-header"> Your Message </h2>
   <form>

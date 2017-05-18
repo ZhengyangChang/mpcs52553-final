@@ -22,4 +22,20 @@ class HousesController < ApplicationController
     house.save
     redirect_to "/", notice: "Successfully post new house #{house.building_name}"
   end
+
+  def edit
+    @house = House.find_by(id: params["id"])
+  end
+
+  def update
+    house = House.find_by(id: params["id"])
+    house.building_name = params["name"]
+    house.address = params["address"]
+    house.rate = params["rate"]
+    house.number_of_bedrooms = params["nb1"]
+    house.number_of_bathrooms = params["nb2"]
+    house.availability = 1
+    house.save
+    redirect_to "/", notice: "Successfully edit house #{house.building_name}"
+  end
 end

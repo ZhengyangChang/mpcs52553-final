@@ -23,5 +23,12 @@
 * Add bootstrap to stylesheet
 * Implement user sign up and sign in functions.  ( in "/users/new" & "sign in" )
 * Users can sign up as a renter or a host. 
-* Hosr can publish a new house for lease (in "/house/new")
+* Hosr can publish a new house for lease (in "/house/new" (Only valid when a host sign in))
 * A simple list of houses to rent in root
+* a simple show house page
+
+### Edit
+
+* In user/show, can edit the phone number directly.
+* Host can edit the house information he post.
+* Renters can leave message to the house (under construction).

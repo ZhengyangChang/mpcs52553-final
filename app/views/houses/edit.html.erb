@@ -1,0 +1,29 @@
+<div class="page-header">
+  <h1>Edit <%= @house.building_name %></h1>
+</div>
+<%= content_tag :div, :class => "col-md-6" do %>
+<%= form_tag "/houses/#{@house.id}", :class => "input-groups" ,method:"patch" do %>
+  <%= label_tag "House name" %>
+  <%= text_field_tag  "name", @house.building_name, autofocus: true, :class => "form-control" , placeholder: "House name", required: true %>
+
+  <%= label_tag "Address" %>
+  <%= text_field_tag  "address", @house.address, :class => "form-control" , placeholder: "Address", required: true %>
+
+  <%= label_tag "Rate" %>
+  <%= content_tag :div, :class => "input-group" do %>
+  <span class="input-group-addon">$</span>
+  <%= text_field_tag  "rate", @house.rate,type: "number", :class => "form-control" , placeholder: "rate", required: true %>
+  <span class="input-group-addon" id="sizing-addon1">per month</span>
+  <% end %>
+  <%= content_tag :div, :class => "col-md-6" do %>
+  <%= label_tag "Number of Bedrooms" %>
+  <%= text_field_tag  "nb1", @house.number_of_bedrooms, :class => "form-control" , placeholder: "bedrooms", required: true %>
+  <% end %>
+  <%= content_tag :div, :class => "col-md-6" do %>
+  <%= label_tag "Number of Bathrooms" %>
+  <%= text_field_tag  "nb2", @house.number_of_bathrooms, :class => "form-control" , placeholder: "bathrooms", required: true %>
+  <% end %>
+  <%= label_tag "" %>
+  <%= submit_tag "submit", :class => 'btn btn-lg btn-primary btn-block' %>
+<% end %>
+<% end %>

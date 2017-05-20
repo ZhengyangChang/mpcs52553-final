@@ -31,4 +31,15 @@
 
 * In user/show, can edit the phone number directly.
 * Host can edit the house information he post.
+* Renter can click the reserve button to reserve the house.
+* Can see the reservation details in the detail page, and the renter can choose to cancel it.
 * Renters can leave message to the house (under construction).
+
+
+
+### For test
+
+You can click sign in and sign up to sign as renter.
+Click a house and click reserve to reserve it.
+In your profile page you can see all the reservations you have.
+You can check other user's profile, reservation record, but you cannot edit the information (like phone number) or cancel a reservation that not belongs to you.

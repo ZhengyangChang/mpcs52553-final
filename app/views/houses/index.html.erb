@@ -4,6 +4,7 @@
 <% @houses.each do |house| %>
 <div class="col-sm-3">
   <h5> <%= link_to house.building_name, "/houses/#{house.id}"  %> </h5>
+  <h5> <%= house.room %></h5>
   <h5> Rate:$<%= house.rate %>/month </h5>
   <h5> <%= house.number_of_bedrooms %> bedrooms and <%= house.number_of_bathrooms %> bathrooms</h5>
   <h5> Host: <%= link_to house.host.name, "/users/#{house.host.user.id}" %> </h5>

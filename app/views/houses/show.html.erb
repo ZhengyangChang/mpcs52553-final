@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1><%= @house.building_name %></h1>
+  <h1><%= @house.building_name %> <%= @house.room %></h1>
 </div>
 
   <h2> Rate:$<%= @house.rate %>/month </h2>
@@ -20,5 +20,22 @@
     <input type="submit" name="Submit">
   </form>
 
+  <% end %>
+<% end %>
+
+<% if @house.reservations.size > 0 %>
+  <h2 class="page-header"> Reservation </h2>
+  This house is reserved by <%= @house.reservations[0].renter.name %>
+  For more details, <%= link_to "click here","/reservations/#{@house.reservations[0].id}" %>
+<% else %>
+  <% if session["user_id"].present? %>
+    <% if User.find_by(id: session["user_id"]).renter.present? %>
+      <h2 class="page-header"> Reserve Now! </h2>
+      <%= form_tag "/reservations" do %>
+        <input type="hidden" name="renter_id" value="<%= User.find_by(id: session["user_id"]).renter.id %>"/>
+        <input type="hidden" name="house_id" value="<%= @house.id %>"/>
+        <%= submit_tag "Reserve", :class => "btn btn-lg btn-primary btn-block" %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

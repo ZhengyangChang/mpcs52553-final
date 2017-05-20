@@ -8,4 +8,5 @@ class User < ApplicationRecord
   belongs_to :renter
 
   validates :email, uniqueness: { message: "Email address already taken." }
+
 end

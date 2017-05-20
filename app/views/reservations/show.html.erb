@@ -1,0 +1,13 @@
+
+<h1 class="page-header"> Reservation record </h1>
+<h2> This Record indicate that 
+  <br> Renter <%= link_to @reservation.renter.name, "/users/#{@reservation.renter.user.id}"%> has rent <%= link_to @reservation.house.building_name+" "+@reservation.house.room, "/houses/#{@reservation.house.id}"%> 
+  <br>Hosted by <%= link_to @reservation.house.host.name, "/users/#{ @reservation.house.host.user.id}" %> </h2>
+
+<% if session["user_id"].present? %>
+  <% if User.find_by(id: session["user_id"]).renter.present? %>
+    <% if User.find_by(id: session["user_id"]).renter == @reservation.renter %>
+      <%= link_to "cancel", "/reservations/#{@reservation.id}", method: "delete", :class => "btn btn-primary" %>
+    <% end %>
+  <% end %>
+<% end %>

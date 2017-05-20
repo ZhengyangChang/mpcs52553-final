@@ -60,6 +60,20 @@ function changeToEdit(section)
       </div>
     </div>
   <% end %>
+
+  <% if @user.renter.reservations.size > 0 %>
+    <div class="col-md-12">
+      <div class="subheader">
+        <h3>Reservations</h3>
+        <ul class="list-group">
+          <% @user.renter.reservations.each do |reservation| %>
+          <li class="list-group-item"><%= link_to reservation.house.building_name+" "+reservation.house.room, "/reservations/#{reservation.id}" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+  <% end %>
 <% end %>
 
 <% if @user.host.present? %>

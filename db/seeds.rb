@@ -12,7 +12,8 @@ Renter.delete_all
 Users = [["u1@u.com","s1",0,"Jack","123-456-7891"],
 ["u2@u.com","s2",1,"Sean","472-472-4651"],
 ["u3@u.com","s3",1,"Tony","752-472-5739"],
-["zhengyangc@uchicago.edu","qwerty",0,"Zhengyang","872-904-8001"]]
+["zhengyangc@uchicago.edu","qwerty",0,"Zhengyang","872-904-8001"],
+["admin","admin",0,"ADMINISTRATOR","0"]]
 
 Users.map do |entry|
   user = User.new
@@ -24,9 +25,10 @@ Users.map do |entry|
     host.phone = entry[4]
     host.user = user
     user.host = host
+    host.credit = "0"
     user.save
     host.save
-  else
+  else 
     renter = Renter.new
     renter.name = entry[3]
     renter.phone = entry[4]
@@ -35,6 +37,8 @@ Users.map do |entry|
     user.save
     renter.save
   end
+
+
 end
 
 House.delete_all
@@ -58,6 +62,7 @@ houses.map do |entry|
   house.rate = entry[5]
   house.number_of_bedrooms = entry[6]
   house.number_of_bathrooms = entry[7]
+  house.availability = 1
   house.host = Host.find_by(name: entry[8])
   house.save
 end
@@ -67,16 +72,12 @@ Reservation.delete_all
 
 reservation = Reservation.new
 reservation.house = House.sample
+reservation.house.availability = 0
+reservation.house.save
 reservation.renter = Renter.sample
+reservation.update_at = Time.new
 reservation.save
 
-Message.delete_all
-
-message = Message.new
-message.body = "hi"
-message.house = House.sample
-message.renter = Renter.sample
-message.save
 
 
 

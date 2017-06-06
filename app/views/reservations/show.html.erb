@@ -1,13 +1,42 @@
 
 <h1 class="page-header"> Reservation record </h1>
-<h2> This Record indicate that 
-  <br> Renter <%= link_to @reservation.renter.name, "/users/#{@reservation.renter.user.id}"%> has rent <%= link_to @reservation.house.building_name+" "+@reservation.house.room, "/houses/#{@reservation.house.id}"%> 
-  <br>Hosted by <%= link_to @reservation.house.host.name, "/users/#{ @reservation.house.host.user.id}" %> </h2>
 
-<% if session["user_id"].present? %>
-  <% if User.find_by(id: session["user_id"]).renter.present? %>
-    <% if User.find_by(id: session["user_id"]).renter == @reservation.renter %>
-      <%= link_to "cancel", "/reservations/#{@reservation.id}", method: "delete", :class => "btn btn-primary" %>
-    <% end %>
-  <% end %>
-<% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Renter</th>
+      <th>Host</th>
+      <th>House</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= link_to @reservation.renter.name, "/users/#{@reservation.renter.user.id}"%></td>
+      
+      <td><%= link_to @reservation.house.host.name, "/users/#{ @reservation.house.host.user.id}" %></td>
+      <td><%= link_to @reservation.house.building_name+" "+@reservation.house.room, "/houses/#{@reservation.house.id}"%> </td>
+
+      <td>
+        <% if session["user_id"].present? %>
+          <% if User.find_by(id: session["user_id"]).renter.present? %>
+            <% if User.find_by(id: session["user_id"]).renter == @reservation.renter %>
+              <%= link_to "cancel", "/reservations/#{@reservation.id}", method: "delete" %>
+            <% end %>
+          <% end %>
+
+          <% if User.find_by(id: session["user_id"]).host.present? %>
+            <% if User.find_by(id: session["user_id"]).host == @reservation.house.host %>
+              <%= link_to "discard", "/reservations/#{@reservation.id}", method: "delete" %>
+              <%= link_to "confirm", "/reservations/#{@reservation.id}", method: "patch" %>
+            <% end %>
+          <% end %>
+
+          <% if User.find_by(id: session["user_id"]).email == "admin" %>
+              <%= link_to "REMOVE", "/reservations/#{@reservation.id}", method: "delete" %>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>

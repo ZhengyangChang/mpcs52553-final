@@ -1,12 +1,3 @@
-<style>
-.subheader {
-    clear: both;
-    margin-bottom: 10px;
-    height: 40px;
-    border-bottom: 1px solid #e4e6e8;
-}
-</style>
-
 <script>
 function changeToEdit(section)
 {
@@ -64,49 +55,220 @@ function changeToEdit(section)
   <% if @user.renter.reservations.size > 0 %>
     <div class="col-md-12">
       <div class="subheader">
-        <h3>Reservations</h3>
-        <ul class="list-group">
+        <h3>Reservations</h3><br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>House</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
           <% @user.renter.reservations.each do |reservation| %>
-          <li class="list-group-item"><%= link_to reservation.house.building_name+" "+reservation.house.room, "/reservations/#{reservation.id}" %></li>
+          <tr>
+            <td><%= link_to reservation.id, "/reservations/#{reservation.id}" %></td>
+            <td><%= link_to reservation.house.building_name+" "+reservation.house.room, "/houses/#{reservation.house.id}" %></td>
+              <td>
+                <% case reservation.house.availability %>
+                <% when 0 %>
+                  Waiting for host to confirm
+                <% when -1 %>
+                  Host confirmed
+                <% when -2 %>
+                  Paid
+                <% end %>
+              </td>
+              <td><% if reservation.house.availability == -1 %><%= link_to "PAY", "/payments/#{reservation.id}" %><% end %></td>
+          </tr>
+
           <% end %>
-        </ul>
+          </tbody>
+        </table>
       </div>
     </div>
 
   <% end %>
-<% end %>
 
-<% if @user.host.present? %>
-  <div class="page-header">
-    <div class="btn-toolbar pull-right">
-      <h2>As Host</h2>
+<% else %>
+  <% if @user.host.present? and @user.email != "admin" %>
+    <div class="page-header">
+      <div class="btn-toolbar pull-right">
+        <h2>As Host</h2>
+      </div>
+      <h2><%= @user.host.name %></h2>
     </div>
-    <h2><%= @user.host.name %></h2>
-  </div>
 
-  <div class="col-md-6">
-    <div class="subheader">
-      <h3>Email</h3>
-    </div>
-    <div id="email-div">
-      <%= @user.email %>
-    </div>
-  </div>
-
-  <% if @user.host.phone.present? %>
     <div class="col-md-6">
       <div class="subheader">
-        <% if @user.id == session["user_id"] %>
-        <div class="btn-toolbar pull-right">
-          <button class="btn btn-primary" onClick="changeToEdit('phone');">Edit</button>
-        </div>
-        <% end %>
+        <h3>Credits</h3>
+      </div>
+      <div id="email-div">
+        $<%= @user.host.credit %>
+      </div>
+    </div>
 
-        <h3>Phone</h3>
+    <div class="col-md-6">
+      <div class="subheader">
+        <h3>Email</h3>
       </div>
-      <div id="phone-div">
-        <%= @user.host.phone %>
+      <div id="email-div">
+        <%= @user.email %>
       </div>
+    </div>
+
+    <% if @user.host.phone.present? %>
+      <div class="col-md-6">
+        <div class="subheader">
+          <% if @user.id == session["user_id"] %>
+          <div class="btn-toolbar pull-right">
+            <button class="btn btn-primary" onClick="changeToEdit('phone');">Edit</button>
+          </div>
+          <% end %>
+
+          <h3>Phone</h3>
+        </div>
+        <div id="phone-div">
+          <%= @user.host.phone %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @user.host.houses.size > 0 and @user.id == session["user_id"] %>
+      <div class="col-md-12">
+        <div class="subheader">
+          <h3>Houses</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>House</th>
+              <th>Status</th>
+              <th>Reservation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.host.houses.each do |house| %>
+            <tr>
+              <td><%= link_to house.building_name, "/houses/#{house.id}" %></td>
+              <td>
+                <% case house.availability %>
+                <% when 1 %>
+                  TO BE RENTED
+                <% when 0 %>
+                  RESERVED
+                <% when -1 %>
+                  WAITING FOR PAYMENT
+                <% when -2 %>
+                  COMPLETED
+                <% end %>
+              </td>
+              <td><% if house.reservations.size > 0 %>
+                By 
+                <%= link_to house.reservations[0].renter.name, "/reservations/#{house.reservations[0].id}" %>
+                ID:
+                <%= link_to house.reservations[0].id, "/reservations/#{house.reservations[0].id}" %>
+
+                <% end %>
+              </td>
+
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    <% end %>
+
+  <% else %>
+    <div class="page-header">
+      <h2>Administrator</h2>
+    </div>
+    <div class="col-md-12">
+      <div class="subheader">
+        <h3>
+          Statistics
+        </h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Number of Users</th>
+            <th>Number of Renters</th>
+            <th>Number of Hosts</th>
+            <th>Number of Reservations</th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          <tr>
+            <td><%= User.count %></td>
+            <td><%= Renter.count %></td>
+            <td><%= Host.count %></td>
+            <td><%= Reservation.count %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-12">
+      <div class="subheader">
+        <h3>
+          Reservation list
+        </h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>House</th>
+            <th>Renter</th>
+            <th>Host</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+      
+        <tbody>
+        <% Reservation.all.each do |reservation| %>
+          <tr>
+            <td><%= link_to reservation.id, "/reservations/#{reservation.id}" %></td>
+            <td><%= link_to reservation.house.building_name, "/houses/#{reservation.house_id}" %></td>
+            <td><%= link_to reservation.renter.name, "/users/#{reservation.renter.user_id}" %></td>
+            <td><%= link_to reservation.house.host.name, "/users/#{reservation.house.host.user_id}" %></td>
+            <td><%= reservation.update_at %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <div class="subheader">
+        <h3>
+          Host Account Credits
+        </h3>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Host Name</th>
+            <th>Account Credits</th>
+            <th>Houses in total</th>
+          </tr>
+        </thead>
+      
+        <tbody>
+        <% Host.all.each do |host| %>
+          <tr>
+            <td><%= host.id %></td>
+            <td><%= link_to host.name, "/users/#{host.user.id}" %></td>
+            <td><%= host.credit %></td>
+            <td><%= host.houses.count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   <% end %>
 <% end %>

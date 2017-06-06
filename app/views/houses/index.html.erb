@@ -2,12 +2,17 @@
   <h1>Houses</h1>
 </div>
 <% @houses.each do |house| %>
+<% if house.availability >= 0 %>
 <div class="col-sm-3">
   <h5> <%= link_to house.building_name, "/houses/#{house.id}"  %> </h5>
   <h5> <%= house.room %></h5>
   <h5> Rate:$<%= house.rate %>/month </h5>
   <h5> <%= house.number_of_bedrooms %> bedrooms and <%= house.number_of_bathrooms %> bathrooms</h5>
   <h5> Host: <%= link_to house.host.name, "/users/#{house.host.user.id}" %> </h5>
+  <% if session["user_id"].present? and User.find_by(id:session["user_id"]).email == "admin" %>
+    <%= link_to "delete", "/houses/#{house.id}",:class => "btn btn-primary", method: "delete" %>
+    <%= link_to "edit","/houses/#{house.id}/edit",:class => "btn btn-primary" %>
+  <% end %>
 </div>
-
+<% end %>
 <% end %>

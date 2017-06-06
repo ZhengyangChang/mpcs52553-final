@@ -9,6 +9,9 @@
   <%= label_tag "Address" %>
   <%= text_field_tag  "address", "", :class => "form-control" , placeholder: "Address", required: true %>
 
+  <%= label_tag "Room" %>
+  <%= text_field_tag  "room", "", :class => "form-control" , placeholder: "Room" %>
+
   <%= label_tag "Rate" %>
   <%= content_tag :div, :class => "input-group" do %>
   <span class="input-group-addon">$</span>
@@ -23,6 +26,19 @@
   <%= label_tag "Number of Bathrooms" %>
   <%= text_field_tag  "nb2", "", :class => "form-control" , placeholder: "bathrooms", required: true %>
   <% end %>
+
+  <%= label_tag "Renting time period" %>
+  <%= content_tag :div, :class => "input-group" do %>
+  <span class="input-group-addon">From</span>
+  <%= text_field_tag  "start-date", "",type: "date", :class => "form-control" , required: true %>
+  <% end %>
+
+  <%= label_tag "" %>
+  <%= content_tag :div, :class => "input-group" do %>
+  <span class="input-group-addon">From</span>
+  <%= text_field_tag  "end-date", "",type: "date", :class => "form-control" , required: true %>
+  <% end %>
+
   <%= label_tag "" %>
   <%= submit_tag "submit", :class => 'btn btn-lg btn-primary btn-block' %>
 <% end %>

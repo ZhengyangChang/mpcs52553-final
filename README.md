@@ -36,6 +36,39 @@
 * Renters can leave message to the house (under construction).
 
 
+## Week 10
+
+#### ADMIN
+
+* Log in as 'admin' and password 'admin'
+* Can see statistics about users and houses.
+* Can add, delete, modify the houses and reservations
+* Can check the list of reservations
+
+#### HOST
+
+* update: when a user finished perchase a house, host will get the credits in account
+* after renter reserve a house, host can decide to reject the reservation or confirm. After confirm, renter can purchase the reservation.
+
+#### HOUSE
+
+* update: Has a new feature availability. 1 - new house availible, 0 - reserved house for some renter, -1 - confirmed by host, -2 purchased.
+* The house with 'availability' lower than 0 will not be shown in the index page of Houses. 
+
+#### USER
+
+* register validation, register must use email, and cannot have required field blank, and has a well formatted message
+* renter can see the house he reserved and click pay to pay for the house.
+* host can see all his house and provide link to the renter so he can check his profile. 
+
+#### PAYMENT
+
+* A new controller payment, using `gem 'stripe'`
+* In renter's profile page you can click on the pay link to open a payment
+* I write a javascript in application.js to get the token using stripe's api
+* post the token string to methon create of payment controller, and submit the stripe request to pay the amount of money
+* In test mode, you can test the payment using card 4242424242424242 with any name, cvc, any date after current date.
+* I think this feature is similar to the `Feature Elective` in default project
 
 ### For test
 
@@ -43,3 +76,9 @@ You can click sign in and sign up to sign as renter.
 Click a house and click reserve to reserve it.
 In your profile page you can see all the reservations you have.
 You can check other user's profile, reservation record, but you cannot edit the information (like phone number) or cancel a reservation that not belongs to you.
+
+You can reserve a house and log in to
+* username: zhengyangc@uchicago.edu
+* password: qwerty
+(which hold most of houses in seed data)
+So you can confirm the reservation or discard it.

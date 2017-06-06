@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.text    "name"
     t.text    "phone"
     t.integer "user_id"
+    t.text    "credit"
     t.index ["user_id"], name: "index_hosts_on_user_id"
   end
 
@@ -31,15 +32,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.text    "building_name"
     t.text    "room"
     t.index ["host_id"], name: "index_houses_on_host_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.text     "body"
-    t.datetime "update_at"
-    t.integer  "house_id"
-    t.integer  "renter_id"
-    t.index ["house_id"], name: "index_messages_on_house_id"
-    t.index ["renter_id"], name: "index_messages_on_renter_id"
   end
 
   create_table "renters", force: :cascade do |t|

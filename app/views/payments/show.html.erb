@@ -1,0 +1,20 @@
+<h1 class="page-header">Payment for <%= @reservation.house.building_name %></h1>
+<div class="payment-errors"></div>
+<div class="wrapper">
+  <form action="/payments" method="post" id="payment_form" name="subscribe_submit" class="form-signin">
+    <h5>You are purchasing $<%= @amount %> </h5>
+    <%= label_tag "Name On Card" %><br>
+    <input class="form-control input-lg required" type="text" size="20" data-stripe="name" />
+    <%= label_tag "Card Number" %><br>
+    <input class="form-control input-lg required" type="text" size="20" data-stripe="number" />
+    <%= label_tag "CVC" %><br>
+    <input class="form-control input-lg required" type="text" size="20" data-stripe="cvc" />
+    <%= label_tag "Expiration Month" %><br>
+    <input class="form-control input-lg required" type="text" size="20" data-stripe="exp-month" />
+    <%= label_tag "Expiration Year" %><br>
+    <input class="form-control input-lg required" type="text" size="20" data-stripe="exp-year" />
+    <input type="hidden" name="reservation_id" value="<%= @reservation.id %>">
+    <input type="hidden" name="amount" value="<%= @amount %>"><br>
+    <input id="bill-me" class="btn btn-block btn-primary" type="submit" value="Pay">
+  </form>
+</div>

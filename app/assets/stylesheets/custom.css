@@ -1,0 +1,65 @@
+
+#head-navbar{
+  font-family : "DINRegular", Arial Black, sans-serif;
+  color: #fff;
+  background-color: #169a5a;
+}
+.subheader {
+    clear: both;
+    margin-bottom: 10px;
+    height: 40px;
+    border-bottom: 1px solid #e4e6e8;
+}
+.link-white:hover, .link-white:focus{
+  background-color: #006639 !important;
+  color: #fff !important;
+}
+
+.link-white, .navbar-brand, .navbar-brand:hover{
+  color: #fff;
+}
+
+.btn-primary, .btn-primary:target,.btn-primary:disabled, .btn-primary.btn-block:disabled, .btn-primary.btn-block:target{
+  border-radius: 0px;
+  font-family : "DINRegular", Arial Black, sans-serif;
+  background-color: #169a5a;
+}
+.btn-primary:hover{
+  background-color: #15804d;
+}
+
+table { width: 100%; border-collapse: collapse;}
+th { border-bottom: solid 1px #999; padding: 12px 0px; text-align: center;}
+td { padding: 12px; text-align: center;}
+tbody tr:nth-of-type(odd) { background-color: #f0f0f0; }
+th, td { border: 1px solid #ddd }
+
+.table > thead:first-child > tr:first-child > th {border-top: 1px solid #ddd;}
+
+a{
+  color: #169a5a;
+  font-family : "DINRegular", Arial Black, sans-serif;
+}
+a:hover{
+  color: #006639;
+  font-family : "DINRegular", Arial Black, sans-serif;
+}
+h1{
+  font-family: "DINRegular", Arial Black, sans-serif;
+}
+
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
+}
+.required:after{
+  content: "*";
+  color: red;
+}
+
+.label.label-info.custom{
+  margin: 20 auto;
+}

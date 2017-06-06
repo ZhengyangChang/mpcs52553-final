@@ -4,12 +4,14 @@
     <title>Hyde Park Renters</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'custom' %>
+    <script src="https://js.stripe.com/v2/"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
 
-    <header class="bs-docs-nav navbar navbar-static-top">
+    <header class="bs-docs-nav navbar navbar-static-top" id="head-navbar">
       <div class="container">
         <div class="navbar-header">
 
@@ -18,22 +20,22 @@
 
         <ul class="nav navbar-nav"> 
           <li> 
-            <a href="/houses/">Houses</a> 
+            <a href="/houses/" class="link-white">Houses</a> 
           </li> 
           <% if session["user_id"].present? %>
             <% if User.find_by(id: session["user_id"]).host.present? %>
               <li>
-                <a href="/houses/new">Post</a>
+                <a href="/houses/new" class="link-white">Post</a>
               </li>
             <% end %>
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if session["user_id"].present? %>
-          <li><%= link_to User.find_by(id: session["user_id"]).email, "/users/#{session["user_id"]}" %></li>
-          <li><%= link_to "Sign Out","/logout" %></li>
+          <li><%= link_to User.find_by(id: session["user_id"]).email, "/users/#{session["user_id"]}", :class => "link-white"  %></li>
+          <li><%= link_to "Sign Out","/logout" , :class => "link-white" %></li>
           <% else %>
-          <li><%= link_to "Sign In", "/login" %></li>
+          <li><%= link_to "Sign In", "/login", :class => "link-white" %></li>
           <% end %>
         </ul>
       </div>

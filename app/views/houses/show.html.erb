@@ -1,10 +1,21 @@
 <div class="page-header">
   <h1><%= @house.building_name %> <%= @house.room %></h1>
 </div>
+<table class = "table-detail">
+  <tbody>
+    <tr><td> Address </td><td><%= @house.address %></td></tr>
+    <% if @house.room.present? %>
+    <tr><td> Room </td><td><%= @house.room %></td></tr>
+    <% end %>
+    <tr><td> Rate </td><td>$<%= @house.rate %>/month </td></tr>
+    <tr><td> <%= @house.number_of_bedrooms %> bedrooms </td><td> <%= @house.number_of_bathrooms %> bathrooms</td></tr>
+    <tr><td> Host </td><td><%= link_to @house.host.name, "/users/#{@house.host.user.id}" %> </td></tr>
+    <tr><td> Start date </td><td><%= @house.start_date %></td>
+    <tr><td> End date </td><td><%= @house.end_date %></td></tr>
+    
 
-  <h2> Rate:$<%= @house.rate %>/month </h2>
-  <h2> <%= @house.number_of_bedrooms %> bedrooms and <%= @house.number_of_bathrooms %> bathrooms</h2>
-  <h2> Host: <%= link_to @house.host.name, "/users/#{@house.host.user.id}" %> </h2>
+  </tbody>
+</table>
 <% if session["user_id"].present? %>
   <% if User.find_by(id: session["user_id"]).host.present? %>
     <% if User.find_by(id: session["user_id"]).host == @house.host %>
@@ -12,21 +23,15 @@
     <% end %>
   <% end %>
 <% end %>
-<% if session["user_id"].present? %>
-  <% if User.find_by(id: session["user_id"]).renter.present? %>
-  <h2 class="page-header"> Your Message </h2>
-  <form>
-    <input type="text"/>
-    <input type="submit" name="Submit">
-  </form>
-
-  <% end %>
-<% end %>
-
 <% if @house.reservations.size > 0 %>
+  <% if @house.availability < 0 %>
+    <h2 class="page-header"> THIS HOUSE IS UNAVAILABLE </h2>
+  <% else %>
   <h2 class="page-header"> Reservation </h2>
   This house is reserved by <%= @house.reservations[0].renter.name %>
   For more details, <%= link_to "click here","/reservations/#{@house.reservations[0].id}" %>
+
+  <% end %>
 <% else %>
   <% if session["user_id"].present? %>
     <% if User.find_by(id: session["user_id"]).renter.present? %>
@@ -34,7 +39,8 @@
       <%= form_tag "/reservations" do %>
         <input type="hidden" name="renter_id" value="<%= User.find_by(id: session["user_id"]).renter.id %>"/>
         <input type="hidden" name="house_id" value="<%= @house.id %>"/>
-        <%= submit_tag "Reserve", :class => "btn btn-lg btn-primary btn-block" %>
+        <%= submit_tag "Reserve", :class => "btn btn-primary btn-block" %>
+        </script>
       <% end %>
     <% end %>
   <% end %>

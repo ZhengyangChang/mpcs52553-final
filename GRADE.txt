@@ -12,3 +12,11 @@ models/associations you can do without (maybe `Message`?).
 - `login` (`User` model) is a bit unclear -- I'm guessing it will be an email/username, but I would make this column name 
 more specific, since you'll probably be limiting it to one of the two.
 
+----------------------------------------------------------
+Milestone #2 Grade
+
+Score: (10/10)
+
+Great job.
+
+- Styles (such as in `sessions/new.html.erb`) should generally be included in layout file.

@@ -1,3 +1,23 @@
+PROJECT GRADE
+
+Score: 25/30
+
+Nice work!  Just a few things:
+
+1. You need to implement authorization in your controllers.  Otherwise, a major
+security breach can occur.  For exmaple, I can get to /users/1 and see the user's information
+without signing in at all.
+
+2. I see code for making reservations and payments, but I can't find the UI to do so.
+(I'm assuming I'm missing something obvious so I didn't deduct much for that)
+
+Have a great summer. :-)
+
+----------------------------------------------------------
+
+
+
+
 Milestone #1 Grade - c439621258
 
 Score: (10/10)
@@ -9,7 +29,7 @@ models/associations you can do without (maybe `Message`?).
 
 - Try to see if there are more validations you could add, such as `validates_presence_of :address` for the `House` model
 
-- `login` (`User` model) is a bit unclear -- I'm guessing it will be an email/username, but I would make this column name 
+- `login` (`User` model) is a bit unclear -- I'm guessing it will be an email/username, but I would make this column name
 more specific, since you'll probably be limiting it to one of the two.
 
 ----------------------------------------------------------
